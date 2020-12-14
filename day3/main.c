@@ -21,22 +21,15 @@ int main() {
 
   /* Down 1 every time so we can actually just read it line-by-line */
   while(fgets(buff, PATTERN_LENGTH + 1, fstream) != NULL) {
+
+    /* Strip off newline */
+    buff[strcspn(buff,"\n")] = 0;
+
     /* We hit a tree!*/
     if(buff[xpos % PATTERN_LENGTH] == '#')
       puz1_count++; 
 
-    for(int i = 0; i < PATTERN_LENGTH; i++) {
-      if(xpos == i) {
-        if(buff[i] == '#')
-          printf("X");
-        else
-          printf("O");
-      } else {
-        printf("%c", buff[xpos % PATTERN_LENGTH]); 
-      }
-    }
     xpos += VELOC_X;
-    printf("\n");
   }
   fclose(fstream);
   printf("%d\n", puz1_count);
